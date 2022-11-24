@@ -71,36 +71,32 @@ function getPreviousSection(current){
         return document.querySelector("body > main > section#red");
 
     }
-
 }
 
-let sections = document.querySelectorAll("body > main > section")
+function getPositionToGo(event){
+
+    let currentScrollPosition = document.documentElement.scrollTop;
+
+    if(event.deltaY > 0){
+
+        return currentScrollPosition + getNextSection(event.target).getBoundingClientRect().top;
+
+    }else if(event.deltaY < 0){
+
+        return currentScrollPosition + getPreviousSection(event.target).getBoundingClientRect().top;
+
+    }
+}
+
+let sections = document.querySelectorAll("body > main > section");
 
 
 for(let i = 0; i < sections.length; i++){
     
     sections[i].addEventListener("wheel", function(event){
         
-        
-        if(event.deltaY > sections[i].getBoundingClientRect().top) // je vais vers le bas
-        {
-            
-            let currentScrollPosition = sections[i].scrollTop;
+        scroll(0, getPositionToGo(event));
 
-            console.log(currentScrollPosition)
-
-            let positionToGo = currentScrollPosition + getNextSection(sections[i]).getBoundingClientRect().top;
-
-            scroll(0, positionToGo);
-        }
-        else if(event.deltaY < sections[i].getBoundingClientRect().top) // je vais vers le haut
-        {
-            let currentScrollPosition = sections[i].scrollTop;
-
-            let positionToGo = currentScrollPosition - getPreviousSection(sections[i]).getBoundingClientRect().top;
-
-            scroll(0, positionToGo);
-        }
     })
 }
 
