@@ -79,11 +79,11 @@ function getPositionToGo(event){
 
     if(event.deltaY > 0){
 
-        return currentScrollPosition + getNextSection(event.target).getBoundingClientRect().top;
+        return (currentScrollPosition + getNextSection(event.target).getBoundingClientRect().top);
 
     }else if(event.deltaY < 0){
 
-        return currentScrollPosition + getPreviousSection(event.target).getBoundingClientRect().top;
+        return (currentScrollPosition + getPreviousSection(event.target).getBoundingClientRect().top);
 
     }
 }
